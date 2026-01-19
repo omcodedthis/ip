@@ -1,6 +1,6 @@
 # Snoopy project template
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Snoopy_. Given below are instructions on how to use it.
+This is a project template for a greenfield Java project. It's named after the cartoon dog _Snoopy_. Given below are instructions on how to use it.
 
 ## Setting up in Intellij
 
@@ -16,10 +16,10 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 1. After that, locate the `src/main/java/Snoopy.java` file, right-click it, and choose `Run Snoopy.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
    ```
    Hello from
-   ____                                      
+    ____                                      
    / ___| _ __   ___   ___  _ __  _   _
    \___ \| '_ \ / _ \ / _ \| '_ \| | | |
-   ___) | | | | (_) | (_) | |_) | |_| |
+    ___) | | | | (_) | (_) | |_) | |_| |
    |____/|_| |_|\___/ \___/| .__/ \__, |
                            |_|    |___/
    ```
