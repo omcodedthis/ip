@@ -13,19 +13,21 @@ public class Snoopy {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public static void echoList(String[] userList, int userListCount) {
+    public static void echoList(Task[] userList, int userListCount) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println(SNOOPY_OUTPUT_HEADER);
 
         for (int i = 0; i < userListCount; i++) {
-            System.out.println("     " + (i + 1) + ". " + userList[i]);
+            String taskName = userList[i].getDescription();
+            String taskStatus = userList[i].getStatusIcon();
+            System.out.println("     " + (i + 1) + ". " + "[" + taskStatus + "] " + taskName);
         }
 
         System.out.println(HORIZONTAL_LINE);
     }
 
     public static void getCommandAndEcho() {
-        String[] userList = new String[100];
+        Task[] userList = new Task[100];
         int userListCount = 0;
         Scanner scanner = new Scanner(System.in);
 
@@ -40,7 +42,7 @@ public class Snoopy {
             } else if (input.equalsIgnoreCase("list")) {
                 echoList(userList, userListCount);
             } else {
-                userList[userListCount] = input;
+                userList[userListCount] = new Task(input);
                 userListCount++;
                 echoInput(input);
             }
