@@ -3,20 +3,22 @@ import java.util.ArrayList;
 public class CommandEngine {
 
     private boolean isExit;
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
-    private static final String SNOOPY_OUTPUT_HEADER = "(Snoopy Says)";
+    private static final String OUTPUT_HORIZONTAL_LINE = "____________________________________________________________";
+    private static final String OUTPUT_SNOOPY_HEADER = "(Snoopy Says)";
 
     public CommandEngine() {
         this.isExit = false;
     }
 
     public void runCommand(String input, String[] args, ArrayList<Task> taskList) {
-        switch (input) {
+        String command = args[0];
+
+        switch (command) {
         case "bye":
-            System.out.println(HORIZONTAL_LINE);
-            System.out.println(SNOOPY_OUTPUT_HEADER);
+            System.out.println(OUTPUT_HORIZONTAL_LINE);
+            System.out.println(OUTPUT_SNOOPY_HEADER);
             System.out.println("Bye. Hope to see you again soon!");
-            System.out.println(HORIZONTAL_LINE);
+            System.out.println(OUTPUT_HORIZONTAL_LINE);
             isExit = true;
             break;
 
@@ -51,8 +53,8 @@ public class CommandEngine {
     }
 
     public static void echoList(ArrayList<Task> taskList) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(SNOOPY_OUTPUT_HEADER);
+        System.out.println(OUTPUT_HORIZONTAL_LINE);
+        System.out.println(OUTPUT_SNOOPY_HEADER);
 
         for (int i = 0; i < taskList.size(); i++) {
             String taskName = taskList.get(i).getDescription();
@@ -60,15 +62,14 @@ public class CommandEngine {
             System.out.println("     " + (i + 1) + ". " + "[" + taskStatus + "] " + taskName);
         }
 
-        System.out.println(HORIZONTAL_LINE);
+        System.out.println();
     }
 
     public static void echoInput(String input) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(SNOOPY_OUTPUT_HEADER);
+        System.out.println(OUTPUT_HORIZONTAL_LINE);
+        System.out.println(OUTPUT_SNOOPY_HEADER);
         System.out.print("added: ");
         System.out.println(input);
-        System.out.println(HORIZONTAL_LINE);
+        System.out.println(OUTPUT_HORIZONTAL_LINE);
     }
-
 }

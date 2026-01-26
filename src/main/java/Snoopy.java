@@ -31,9 +31,8 @@ public class Snoopy {
             String input = scanner.nextLine().trim().toLowerCase();
 
             String[] args = input.split(" ");
-            String command = args[0];
 
-            commandEngine.runCommand(command, args, taskList);
+            commandEngine.runCommand(input, args, taskList);
         }
         scanner.close();
     }
