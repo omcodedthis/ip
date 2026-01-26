@@ -1,11 +1,20 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Main entry point for the Snoopy application.
+ * Handles the initialization and the main input loop.
+ */
 public class Snoopy {
 
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
-    private static final String SNOOPY_OUTPUT_HEADER = "(Snoopy Says)";
+    private static final String OUTPUT_HORIZONTAL_LINE = "____________________________________________________________";
 
+    /**
+     * Entry point of the program.
+     * Displays the 'Snoopy' logo and starts the command processing loop.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         String logo = "\n ____                                      \n"
                 + "/ ___| _ __   ___   ___  _ __  _   _   \n"
@@ -16,11 +25,15 @@ public class Snoopy {
         System.out.println("Hello from" + logo);
 
         System.out.println("What can I do for you?");
-        System.out.println(HORIZONTAL_LINE);
+        System.out.println(OUTPUT_HORIZONTAL_LINE);
 
         getCommandAndRun();
     }
 
+    /**
+     * Captures user input and passes it to the command engine.
+     * Continues to prompt for input until the exit command is issued.
+     */
     public static void getCommandAndRun() {
         CommandEngine commandEngine = new CommandEngine();
         ArrayList<Task> taskList = new ArrayList<>();
@@ -30,9 +43,9 @@ public class Snoopy {
             System.out.print("Your input: ");
             String input = scanner.nextLine().trim().toLowerCase();
 
-            String[] args = input.split(" ");
+            String[] userArguments = input.split(" ");
 
-            commandEngine.runCommand(input, args, taskList);
+            commandEngine.runCommand(input, userArguments, taskList);
         }
         scanner.close();
     }
