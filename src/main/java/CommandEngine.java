@@ -28,6 +28,8 @@ public class CommandEngine {
      */
     public void runCommand(String input, String[] userArguments, ArrayList<Task> taskList) {
         String command = userArguments[0];
+        int argumentIndex = 0;
+        Task task;
 
         switch (command) {
         case "bye":
@@ -43,13 +45,25 @@ public class CommandEngine {
             break;
 
         case "mark":
-            int mark_index = Integer.parseInt(userArguments[1]) - 1;
-            taskList.get(mark_index).markDone();
+            argumentIndex = Integer.parseInt(userArguments[1]) - 1;
+            task = taskList.get(argumentIndex);
+            task.markDone();
+            System.out.println(OUTPUT_HORIZONTAL_LINE);
+            System.out.println(OUTPUT_SNOOPY_HEADER);
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println("[" + task.getStatusIcon() + "] " + task.getDescription());
+            System.out.println(OUTPUT_HORIZONTAL_LINE);
             break;
 
         case "unmark":
-            int unmark_index = Integer.parseInt(userArguments[1]) - 1;
-            taskList.get(unmark_index).unmarkDone();
+            argumentIndex = Integer.parseInt(userArguments[1]) - 1;
+            task = taskList.get(argumentIndex);
+            task.unmarkDone();
+            System.out.println(OUTPUT_HORIZONTAL_LINE);
+            System.out.println(OUTPUT_SNOOPY_HEADER);
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println("[" + task.getStatusIcon() + "] " + task.getDescription());
+            System.out.println(OUTPUT_HORIZONTAL_LINE);
             break;
 
         default:
@@ -93,8 +107,7 @@ public class CommandEngine {
             String taskStatus = taskList.get(i).getStatusIcon();
             System.out.println("     " + (i + 1) + ". " + "[" + taskStatus + "] " + taskName);
         }
-
-        System.out.println();
+        System.out.println(OUTPUT_HORIZONTAL_LINE);
     }
 
     /**
