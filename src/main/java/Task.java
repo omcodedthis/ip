@@ -31,8 +31,16 @@ public class Task {
      *
      * @return Status icon string.
      */
-    public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+    public String getStatusIcons() {
+        String statusIcons ="[T]";
+
+        if (isDone) {
+            statusIcons += "[X] ";
+        } else {
+            statusIcons += "[ ] ";
+        }
+
+        return statusIcons;
     }
 
     /**

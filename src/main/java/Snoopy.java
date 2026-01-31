@@ -15,7 +15,7 @@ public class Snoopy {
      *
      * @param args Command line arguments (not used).
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         String logo = "\n ____                                      \n"
                 + "/ ___| _ __   ___   ___  _ __  _   _   \n"
                 + "\\___ \\| '_ \\ / _ \\ / _ \\| '_ \\| | | |  \n"
@@ -34,18 +34,19 @@ public class Snoopy {
      * Captures user input and passes it to the command engine.
      * Continues to prompt for input until the exit command is issued.
      */
-    public static void getCommandAndRun() {
-        CommandEngine commandEngine = new CommandEngine();
+    public static void getCommandAndRun() throws Exception {
+        boolean isExit = false;
         ArrayList<Task> taskList = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
-        while (!commandEngine.isExit()) {
+        while (!isExit) {
             System.out.print("Your input: ");
-            String input = scanner.nextLine().trim().toLowerCase();
+            String input = scanner.nextLine();
+            CommandRunner command = InputReader.readInput(input);
 
-            String[] userArguments = input.split(" ");
+            command.runCommand(taskList);
 
-            commandEngine.runCommand(input, userArguments, taskList);
+            isExit = command.isExit();
         }
         scanner.close();
     }
