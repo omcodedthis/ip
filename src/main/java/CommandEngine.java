@@ -61,7 +61,7 @@ public class CommandEngine {
             task.unmarkDone();
             System.out.println(OUTPUT_HORIZONTAL_LINE);
             System.out.println(OUTPUT_SNOOPY_HEADER);
-            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println("Alright, I have marked this task as not done yet:");
             System.out.println("[" + task.getStatusIcon() + "] " + task.getDescription());
             System.out.println(OUTPUT_HORIZONTAL_LINE);
             break;
