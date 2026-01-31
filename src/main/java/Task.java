@@ -27,24 +27,24 @@ public class Task {
     }
 
     /**
-     * Returns "X" if the task is done, otherwise returns a space.
+     * Returns the string representation of the task's status and type.
      *
-     * @return Status icon string.
+     * @return A string containing the task type and the status icon (e.g., "[T][X] ").
      */
     public String getStatusIcons() {
-        String statusIcons ="[T]";
+        String statusIcons = "[T]";
 
         if (isDone) {
             statusIcons += "[X] ";
         } else {
             statusIcons += "[ ] ";
         }
-
         return statusIcons;
     }
 
     /**
      * Marks the task as done.
+     * Sets the completion status to true.
      */
     public void markDone() {
         this.isDone = true;
@@ -52,6 +52,7 @@ public class Task {
 
     /**
      * Marks the task as not done.
+     * Sets the completion status to false.
      */
     public void unmarkDone() {
         this.isDone = false;

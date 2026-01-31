@@ -14,6 +14,9 @@ public class CommandRunner {
     /**
      * Initializes the command engine.
      * Sets the exit state to false.
+     *
+     * @param commandType The type of command to be executed (e.g., LIST, TODO).
+     * @param commandArguments The full array of parsed command arguments.
      */
     public CommandRunner(Command commandType, String[] commandArguments) {
         this.commandType = commandType;
@@ -24,10 +27,7 @@ public class CommandRunner {
     /**
      * Executes the command specified by the user arguments.
      * Handles commands such as "bye", "list", "mark", and "unmark".
-     * If the command is not recognized, it treats the input as a new task description.
      *
-     * @param input Raw input string from the user.
-     * @param userArguments Array containing the parsed command and arguments.
      * @param taskList List of tasks to be modified or displayed.
      */
     public void runCommand(ArrayList<Task> taskList) {
@@ -49,24 +49,12 @@ public class CommandRunner {
 
         case MARK:
             argumentIndex = Integer.parseInt(this.commandArguments[1]) - 1;
-            task = taskList.get(argumentIndex);
-            task.markDone();
-            System.out.println(OUTPUT_HORIZONTAL_LINE);
-            System.out.println(OUTPUT_SNOOPY_HEADER);
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(task.getStatusIcons() + task.getDescription());
-            System.out.println(OUTPUT_HORIZONTAL_LINE);
+            setTaskIsDone(argumentIndex, true, taskList);
             break;
 
         case UNMARK:
             argumentIndex = Integer.parseInt(this.commandArguments[1]) - 1;
-            task = taskList.get(argumentIndex);
-            task.unmarkDone();
-            System.out.println(OUTPUT_HORIZONTAL_LINE);
-            System.out.println(OUTPUT_SNOOPY_HEADER);
-            System.out.println("Alright, I have marked this task as not done yet:");
-            System.out.println("[" + task.getStatusIcons() + "] " + task.getDescription());
-            System.out.println(OUTPUT_HORIZONTAL_LINE);
+            setTaskIsDone(argumentIndex, false, taskList);
             break;
 
         case TODO:
@@ -96,6 +84,31 @@ public class CommandRunner {
     }
 
     /**
+     * Updates the completion status of a specific task and prints the result.
+     * Can mark a task as either done or not done based on the isDone flag.
+     *
+     * @param index The 0-based index of the task in the taskList to modify.
+     * @param isDone True to mark the task as done, false to mark it as not done.
+     * @param taskList The list of tasks containing the target task.
+     */
+    public void setTaskIsDone(int index, boolean isDone, ArrayList<Task>taskList) {
+        Task task = taskList.get(index);
+        System.out.println(OUTPUT_HORIZONTAL_LINE);
+        System.out.println(OUTPUT_SNOOPY_HEADER);
+
+        if (isDone) {
+            task.markDone();
+            System.out.println("Nice! I've marked this task as done:");
+        } else {
+            task.unmarkDone();
+            System.out.println("Alright, I have marked this task as not done yet:");
+        }
+
+        System.out.println(task.getStatusIcons() + task.getDescription());
+        System.out.println(OUTPUT_HORIZONTAL_LINE);
+    }
+
+    /**
      * Prints the current list of tasks to the console.
      *
      * @param taskList List of tasks to print.
@@ -106,13 +119,30 @@ public class CommandRunner {
 
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
-            String taskName = taskList.get(i).getDescription();
-            String taskStatus = taskList.get(i).getStatusIcons();
-            System.out.println("     " + (i + 1) + ". " + taskStatus + taskName);
+            Task currentTask = taskList.get(i);
+
+            String currentTaskName = currentTask.getDescription();
+            String currentTaskStatus = currentTask.getStatusIcons();
+            System.out.print("     " + (i + 1) + ". " + currentTaskStatus + currentTaskName);
+
+            if (currentTask instanceof Deadline deadline) {
+                System.out.println(" (by: " + deadline.getDoBy() + ")");
+            } else if (currentTask instanceof Event event) {
+                System.out.println(" (from: " + event.getFrom() + " to: " + event.getTo() + ")");
+            } else {
+                System.out.println();
+            }
         }
         System.out.println(OUTPUT_HORIZONTAL_LINE);
     }
 
+    /**
+     * Creates and adds a ToDo task to the task list.
+     * Parses the description from the command arguments and displays the success message.
+     *
+     * @param commandArguments Array containing the command and its arguments.
+     * @param taskList The list of tasks to add the new ToDo to.
+     */
     public static void addToDoToList(String[] commandArguments, ArrayList<Task> taskList) {
         String description = commandArguments[1];
         ToDo todo = new ToDo(description);
@@ -127,6 +157,13 @@ public class CommandRunner {
         System.out.println(OUTPUT_HORIZONTAL_LINE);
     }
 
+    /**
+     * Creates and adds a Deadline task to the task list.
+     * Splits the arguments to extract the description and the 'by' date.
+     *
+     * @param commandArguments Array containing the command and its arguments.
+     * @param taskList The list of tasks to add the new Deadline to.
+     */
     public static void addDeadlineToList(String[] commandArguments, ArrayList<Task> taskList) {
         String[] deadlineParts = commandArguments[1].split(" /by ", 2);
         String description = deadlineParts[0];
@@ -144,6 +181,13 @@ public class CommandRunner {
         System.out.println(OUTPUT_HORIZONTAL_LINE);
     }
 
+    /**
+     * Creates and adds an Event task to the task list.
+     * Splits the arguments to extract the description, 'from' date, and 'to' date.
+     *
+     * @param commandArguments Array containing the command and its arguments.
+     * @param taskList The list of tasks to add the new Event to.
+     */
     public static void addEventToList(String[] commandArguments, ArrayList<Task> taskList) {
         String[] partsFrom = commandArguments[1].split(" /from ", 2);
         String description = partsFrom[0];
@@ -159,7 +203,7 @@ public class CommandRunner {
         System.out.println(OUTPUT_HORIZONTAL_LINE);
         System.out.println(OUTPUT_SNOOPY_HEADER);
         System.out.println("Got it. I've added this task:");
-        System.out.println(statusIcons + description + " (from: " + event.getFrom() + "to:" + event.getTo() + ")");
+        System.out.println(statusIcons + description + " (from: " + event.getFrom() + " to: " + event.getTo() + ")");
         System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
         System.out.println(OUTPUT_HORIZONTAL_LINE);
     }

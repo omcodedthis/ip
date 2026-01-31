@@ -14,6 +14,7 @@ public class Snoopy {
      * Displays the 'Snoopy' logo and starts the command processing loop.
      *
      * @param args Command line arguments (not used).
+     * @throws Exception If an error occurs during the execution of the command loop.
      */
     public static void main(String[] args) throws Exception {
         String logo = "\n ____                                      \n"
@@ -33,6 +34,8 @@ public class Snoopy {
     /**
      * Captures user input and passes it to the command engine.
      * Continues to prompt for input until the exit command is issued.
+     *
+     * @throws Exception If an input/output error occurs or a command fails to execute.
      */
     public static void getCommandAndRun() throws Exception {
         boolean isExit = false;
