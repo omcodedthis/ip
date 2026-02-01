@@ -36,11 +36,7 @@ public class CommandRunner {
 
         switch (commandType) {
         case BYE:
-            System.out.println(OUTPUT_HORIZONTAL_LINE);
-            System.out.println(OUTPUT_SNOOPY_HEADER);
-            System.out.println("Bye. Hope to see you again soon!");
-            System.out.println(OUTPUT_HORIZONTAL_LINE);
-            this.isExit = true;
+            setToExit();
             break;
 
         case LIST:
@@ -49,12 +45,12 @@ public class CommandRunner {
 
         case MARK:
             argumentIndex = Integer.parseInt(this.commandArguments[1]) - 1;
-            setTaskIsDone(argumentIndex, true, taskList);
+            setTaskIsDoneValue(argumentIndex, true, taskList);
             break;
 
         case UNMARK:
             argumentIndex = Integer.parseInt(this.commandArguments[1]) - 1;
-            setTaskIsDone(argumentIndex, false, taskList);
+            setTaskIsDoneValue(argumentIndex, false, taskList);
             break;
 
         case TODO:
@@ -75,6 +71,19 @@ public class CommandRunner {
     }
 
     /**
+     * Prints the 'BYE' message.
+     * Sets isExit to true.
+     */
+    public void setToExit() {
+        System.out.println(OUTPUT_HORIZONTAL_LINE);
+        System.out.println(OUTPUT_SNOOPY_HEADER);
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println(OUTPUT_HORIZONTAL_LINE);
+
+        this.isExit = true;
+    }
+
+    /**
      * Returns true if the exit command has been issued.
      *
      * @return Exit state of the application.
@@ -91,7 +100,7 @@ public class CommandRunner {
      * @param isDone True to mark the task as done, false to mark it as not done.
      * @param taskList The list of tasks containing the target task.
      */
-    public void setTaskIsDone(int index, boolean isDone, ArrayList<Task>taskList) {
+    public void setTaskIsDoneValue(int index, boolean isDone, ArrayList<Task>taskList) {
         Task task = taskList.get(index);
         System.out.println(OUTPUT_HORIZONTAL_LINE);
         System.out.println(OUTPUT_SNOOPY_HEADER);
