@@ -1,6 +1,6 @@
-# Snoopy project template
+# Snoopy Chatbot
 
-This is a project template for a greenfield Java project. It's named after the cartoon dog _Snoopy_. Given below are instructions on how to use it.
+This is a chatbot named after the cartoon dog _Snoopy_. Given below are instructions on how to use it.
 
 ## Setting up in Intellij
 
