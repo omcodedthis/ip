@@ -19,25 +19,18 @@ public class InputReader {
         switch (commandType) {
         case BYE:
             return new CommandRunner(Command.BYE, commandArguments);
-
         case LIST:
             return new CommandRunner(Command.LIST, commandArguments);
-
         case MARK:
             return new CommandRunner(Command.MARK, commandArguments);
-
         case UNMARK:
             return new CommandRunner(Command.UNMARK, commandArguments);
-
         case TODO:
             return new CommandRunner(Command.TODO, commandArguments);
-
         case DEADLINE:
             return new CommandRunner(Command.DEADLINE, commandArguments);
-
         case EVENT:
             return new CommandRunner(Command.EVENT, commandArguments);
-
         default:
             throw new Exception("Unknown command!");
         }

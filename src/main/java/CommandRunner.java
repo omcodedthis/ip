@@ -38,33 +38,26 @@ public class CommandRunner {
         case BYE:
             setToExit();
             break;
-
         case LIST:
             echoList(taskList);
             break;
-
         case MARK:
             argumentIndex = Integer.parseInt(this.commandArguments[1]) - 1;
             setTaskIsDoneValue(argumentIndex, true, taskList);
             break;
-
         case UNMARK:
             argumentIndex = Integer.parseInt(this.commandArguments[1]) - 1;
             setTaskIsDoneValue(argumentIndex, false, taskList);
             break;
-
         case TODO:
             addToDoToList(commandArguments, taskList);
             break;
-
         case DEADLINE:
             addDeadlineToList(commandArguments, taskList);
             break;
-
         case EVENT:
             addEventToList(commandArguments, taskList);
             break;
-
         default:
             break;
         }
