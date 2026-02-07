@@ -6,56 +6,56 @@ Hello from
 |____/|_| |_|\___/ \___/| .__/ \__, |  
                         |_|    |___/   
 
-What can I do for you?
+What can I do for you dawg?
 ____________________________________________________________
 Your input: ____________________________________________________________
 (Snoopy Says)
-Got it. I've added this task:
+No problemo. I have added this ToDo to the list:
 [T][ ] watch tv
 Now you have 1 task(s) in the list.
 ____________________________________________________________
 Your input: ____________________________________________________________
 (Snoopy Says)
-Got it. I've added this task:
+No problemo. I have added this Deadline to the list:
 [D][ ] return book (by: Sunday)
 Now you have 2 task(s) in the list.
 ____________________________________________________________
 Your input: ____________________________________________________________
 (Snoopy Says)
-Got it. I've added this task:
+No problemo. I have added this Event to the list:
 [E][ ] meeting (from: Mon 2pm to: 4pm)
 Now you have 3 task(s) in the list.
 ____________________________________________________________
 Your input: ____________________________________________________________
 (Snoopy Says)
-Here are the tasks in your list:
+Here is everything I am tracking dawg:
      1. [T][ ] watch tv
      2. [D][ ] return book (by: Sunday)
      3. [E][ ] meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 Your input: ____________________________________________________________
 (Snoopy Says)
-Nice! I've marked this task as done:
+Marked this as done dawg:
 [T][X] watch tv
 ____________________________________________________________
 Your input: ____________________________________________________________
 (Snoopy Says)
-Nice! I've marked this task as done:
+Marked this as done dawg:
 [D][X] return book
 ____________________________________________________________
 Your input: ____________________________________________________________
 (Snoopy Says)
-Alright, I have marked this task as not done yet:
+Marked this not done dawg, you gotta double up:
 [T][ ] watch tv
 ____________________________________________________________
 Your input: ____________________________________________________________
 (Snoopy Says)
-Here are the tasks in your list:
+Here is everything I am tracking dawg:
      1. [T][ ] watch tv
      2. [D][X] return book (by: Sunday)
      3. [E][ ] meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 Your input: ____________________________________________________________
 (Snoopy Says)
-Bye. Hope to see you again soon!
+Ciao! See ya later.
 ____________________________________________________________
