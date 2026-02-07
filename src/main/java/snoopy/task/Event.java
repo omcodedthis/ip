@@ -1,3 +1,5 @@
+package snoopy.task;
+
 /**
  * Represents an Event task.
  * An Event task corresponds to a task that starts at a specific time and ends at a specific time.

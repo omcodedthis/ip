@@ -1,3 +1,8 @@
+package snoopy.command;
+
+import snoopy.exception.InvalidCommandException;
+import snoopy.exception.SnoopyException;
+
 /**
  * Handles the parsing of user input.
  * Converts raw input strings into executable CommandRunner objects.
@@ -24,7 +29,7 @@ public class InputReader {
         try {
             commandType = Command.valueOf(commandArguments[0].toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new InvalidCommandException("Yo dawg, I got no idea what ya saying!");
+            throw new InvalidCommandException("Yo dawg, I got no idea what " + input + " means!");
         }
 
         long commandArugmentsLength = commandArguments.length;

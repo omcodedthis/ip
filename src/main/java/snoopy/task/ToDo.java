@@ -1,3 +1,5 @@
+package snoopy.task;
+
 /**
  * Represents a ToDo task.
  * A ToDo task is a task without any date/time attached to it.

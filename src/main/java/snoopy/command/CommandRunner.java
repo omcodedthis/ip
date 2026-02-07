@@ -1,3 +1,11 @@
+package snoopy.command;
+
+import snoopy.exception.SnoopyException;
+import snoopy.task.Deadline;
+import snoopy.task.Event;
+import snoopy.task.Task;
+import snoopy.task.ToDo;
+
 import java.util.ArrayList;
 
 /**

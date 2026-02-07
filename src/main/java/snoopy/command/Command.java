@@ -1,3 +1,5 @@
+package snoopy.command;
+
 /**
  * Represents the valid command types that the Snoopy application can execute.
  */
