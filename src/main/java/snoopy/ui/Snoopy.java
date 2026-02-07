@@ -1,3 +1,10 @@
+package snoopy.ui;
+
+import snoopy.command.CommandRunner;
+import snoopy.command.InputReader;
+import snoopy.exception.SnoopyException;
+import snoopy.task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

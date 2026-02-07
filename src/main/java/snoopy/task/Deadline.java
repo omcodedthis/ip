@@ -1,3 +1,5 @@
+package snoopy.task;
+
 /**
  * Represents a Deadline task.
  * A Deadline task corresponds to a task that needs to be done before a specific date/time.
