@@ -7,7 +7,9 @@ import java.util.Scanner;
  */
 public class Snoopy {
 
-    private static final String OUTPUT_HORIZONTAL_LINE = "____________________________________________________________";
+    private static final String OUTPUT_HORIZONTAL_LINE =
+            "_______________________________________________________________________________________________";
+    private static final String OUTPUT_SNOOPY_HEADER = "(Snoopy Says)";
 
     /**
      * Entry point of the program.
@@ -17,27 +19,15 @@ public class Snoopy {
      * @throws Exception If an error occurs during the execution of the command loop.
      */
     public static void main(String[] args) throws Exception {
-        String snoopyLogo = """
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⡠⠔⢊⣩⣭⡐⠳⣤⣤⣤⡀⠀⠀⠀⠀⠀   
-    ⠀⠀⠀⢠⠊⠀⢠⣿⣿⣿⣿⣶⣿⣿⣿⣿⠍⠒⢄⠀   What ya need?
-    ⠀⠀⢀⠇⠀⣠⡼⢿⣿⣿⡿⠉⠻⣿⣿⠟⠀⠀⠀⠱⡄      /
-    ⠀⢀⢎⣶⣎⡇⠀⠀⠉⠁⠀⠀⠀⠀⣴⣶⣦⠀⠀⠀ ⠃  ___/
-    ⢠⣾⢸⣿⣿⣞⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⢀⡆     ____
-    ⠻⢹⣸⣿⣿⣿⢰⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀ ⡤⠞⠀   / ___| _ __   ___   ___  _ __  _   _
-    ⠀⠈⢻⣿⣿⡿⣸⠤⢀⡀⠀⠀⠀⡠⠔⠒⠉⠁⠀⠀⠀   \\___ \\| ._ \\ / _ \\ / _ \\| '_ \\| | | |
-    ⡠⢔⠒⡯⣓⣚⣁⣀⣀⣈⣷⣤⣴⣷⠀⠀⠀⠀⠀⠀⠀    ___) | | | | (_) | (_) | |_) | |_| |
-    ⠧⡈⠀⡟⠁⠀⠀⠀⠀⠈⠛⠛⠛⠻⢿⡄⡄⠀⠀⠀⠀⠀  |____/|_| |_|\\___/ \\___/| .__/ \\__. |
-    ⠰⣇⣰⠛⠦⠤⠤⠤⢤⠀⢀⣺⣿⣿⣿⣧⠀⠀⠀⠀⠀                           |_|    |___/
-    ⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⢸⣿⣿⢿⠿⣾⣱⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⡠⠤⢼⡿⠿⠿⠿⠛⠛⠋⠀⡇⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠈⠉⠀⠈⠦⡀⠀⢀⣠⠂⢀⡇⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡤⠒⠛⠀⠈⢅⠠⡈⠑⡀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠀⠀⠀⠈⠀⠁⠈⠀⠀
-    """;
-        System.out.println(snoopyLogo);
+        String logo = "\n ____                                      \n"
+                + "/ ___| _ __   ___   ___  _ __  _   _   \n"
+                + "\\___ \\| '_ \\ / _ \\ / _ \\| '_ \\| | | |  \n"
+                + " ___) | | | | (_) | (_) | |_) | |_| |  \n"
+                + "|____/|_| |_|\\___/ \\___/| .__/ \\__, |  \n"
+                + "                        |_|    |___/   \n";
+        System.out.println("Hello from" + logo);
 
-        System.out.println("What can I do for you?");
+        System.out.println("What can I do for you dawg?");
         System.out.println(OUTPUT_HORIZONTAL_LINE);
 
         getCommandAndRun();
@@ -49,19 +39,25 @@ public class Snoopy {
      *
      * @throws Exception If an input/output error occurs or a command fails to execute.
      */
-    public static void getCommandAndRun() throws Exception {
+    public static void getCommandAndRun() throws SnoopyException {
         boolean isExit = false;
         ArrayList<Task> taskList = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-
         while (!isExit) {
-            System.out.print("Your input: ");
-            String input = scanner.nextLine();
-            CommandRunner command = InputReader.readInput(input);
+            try {
+                System.out.print("Your input: ");
+                String input = scanner.nextLine();
+                CommandRunner command = InputReader.readInput(input);
 
-            command.runCommand(taskList);
+                command.runCommand(taskList);
 
-            isExit = command.isExit();
+                isExit = command.isExit();
+            } catch (SnoopyException e) {
+                System.out.println(OUTPUT_HORIZONTAL_LINE);
+                System.out.println(OUTPUT_SNOOPY_HEADER);
+                System.out.println(e.getMessage());
+                System.out.println(OUTPUT_HORIZONTAL_LINE);
+            }
         }
         scanner.close();
     }

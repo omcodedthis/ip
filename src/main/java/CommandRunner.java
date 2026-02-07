@@ -30,7 +30,7 @@ public class CommandRunner {
      *
      * @param taskList List of tasks to be modified or displayed.
      */
-    public void runCommand(ArrayList<Task> taskList) {
+    public void runCommand(ArrayList<Task> taskList) throws SnoopyException {
         int argumentIndex;
         Task task;
 
@@ -43,10 +43,18 @@ public class CommandRunner {
             break;
         case MARK:
             argumentIndex = Integer.parseInt(this.commandArguments[1]) - 1;
+
+            if (argumentIndex < 0 || argumentIndex >= taskList.size()) {
+                throw new SnoopyException("Yo dawg, that task number is out of bounds!");
+            }
             setTaskIsDoneValue(argumentIndex, true, taskList);
             break;
         case UNMARK:
             argumentIndex = Integer.parseInt(this.commandArguments[1]) - 1;
+
+            if (argumentIndex < 0 || argumentIndex >= taskList.size()) {
+                throw new SnoopyException("Yo dawg, that task number is out of bounds!");
+            }
             setTaskIsDoneValue(argumentIndex, false, taskList);
             break;
         case TODO:
@@ -70,7 +78,7 @@ public class CommandRunner {
     public void setToExit() {
         System.out.println(OUTPUT_HORIZONTAL_LINE);
         System.out.println(OUTPUT_SNOOPY_HEADER);
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Ciao! See ya later.");
         System.out.println(OUTPUT_HORIZONTAL_LINE);
 
         this.isExit = true;
@@ -100,10 +108,10 @@ public class CommandRunner {
 
         if (isDone) {
             task.markDone();
-            System.out.println("Nice! I've marked this task as done:");
+            System.out.println("Marked this as done dawg:");
         } else {
             task.unmarkDone();
-            System.out.println("Alright, I have marked this task as not done yet:");
+            System.out.println("Marked this not done dawg, you gotta double up:");
         }
 
         System.out.println(task.getStatusIcons() + task.getDescription());
@@ -119,7 +127,7 @@ public class CommandRunner {
         System.out.println(OUTPUT_HORIZONTAL_LINE);
         System.out.println(OUTPUT_SNOOPY_HEADER);
 
-        System.out.println("Here are the tasks in your list:");
+        System.out.println("Here is everything I am tracking dawg:");
         for (int i = 0; i < taskList.size(); i++) {
             Task currentTask = taskList.get(i);
 
@@ -153,7 +161,7 @@ public class CommandRunner {
 
         System.out.println(OUTPUT_HORIZONTAL_LINE);
         System.out.println(OUTPUT_SNOOPY_HEADER);
-        System.out.println("Got it. I've added this task:");
+        System.out.println("No problemo. I have added this ToDo to the list:");
         System.out.println(statusIcons + description);
         System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
         System.out.println(OUTPUT_HORIZONTAL_LINE);
@@ -166,8 +174,12 @@ public class CommandRunner {
      * @param commandArguments Array containing the command and its arguments.
      * @param taskList The list of tasks to add the new Deadline to.
      */
-    public static void addDeadlineToList(String[] commandArguments, ArrayList<Task> taskList) {
+    public static void addDeadlineToList(String[] commandArguments, ArrayList<Task> taskList) throws SnoopyException {
         String[] deadlineParts = commandArguments[1].split(" /by ", 2);
+        if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty() || deadlineParts[1].trim().isEmpty()) {
+            throw new SnoopyException("Yo dawg, you can't have an empty description or date!");
+        }
+
         String description = deadlineParts[0];
         String doBy = deadlineParts[1];
 
@@ -177,7 +189,7 @@ public class CommandRunner {
 
         System.out.println(OUTPUT_HORIZONTAL_LINE);
         System.out.println(OUTPUT_SNOOPY_HEADER);
-        System.out.println("Got it. I've added this task:");
+        System.out.println("No problemo. I have added this Deadline to the list:");
         System.out.println(statusIcons + description + " (by: " + deadline.getDoBy() + ")");
         System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
         System.out.println(OUTPUT_HORIZONTAL_LINE);
@@ -190,13 +202,22 @@ public class CommandRunner {
      * @param commandArguments Array containing the command and its arguments.
      * @param taskList The list of tasks to add the new Event to.
      */
-    public static void addEventToList(String[] commandArguments, ArrayList<Task> taskList) {
+    public static void addEventToList(String[] commandArguments, ArrayList<Task> taskList) throws SnoopyException {
         String[] partsFrom = commandArguments[1].split(" /from ", 2);
-        String description = partsFrom[0];
+
+        if (partsFrom.length < 2 || partsFrom[0].trim().isEmpty() || partsFrom[1].trim().isEmpty()) {
+            throw new SnoopyException("Yo dawg, you need a description and a /from date!");
+        }
+        String description = partsFrom[0].trim();
 
         String[] partsTo = partsFrom[1].split(" /to ", 2);
-        String from = partsTo[0];
-        String to = partsTo[1];
+
+        if (partsTo.length < 2 || partsTo[0].trim().isEmpty() || partsTo[1].trim().isEmpty()) {
+            throw new SnoopyException("Yo dawg, ensure you have both /from and /to times!");
+        }
+
+        String from = partsTo[0].trim();
+        String to = partsTo[1].trim();
 
         Event event = new Event(description, from, to);
         taskList.add(event);
@@ -204,7 +225,7 @@ public class CommandRunner {
 
         System.out.println(OUTPUT_HORIZONTAL_LINE);
         System.out.println(OUTPUT_SNOOPY_HEADER);
-        System.out.println("Got it. I've added this task:");
+        System.out.println("No problemo. I have added this Event to the list:");
         System.out.println(statusIcons + description + " (from: " + event.getFrom() + " to: " + event.getTo() + ")");
         System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
         System.out.println(OUTPUT_HORIZONTAL_LINE);
