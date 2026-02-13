@@ -47,10 +47,10 @@ public class InputReader {
             }
             return new CommandRunner(Command.LIST, commandArguments);
         case MARK:
-            if (commandArugmentsLength < 2) {
-                throw new SnoopyException("Yo dawg, you should tell me the task number!");
-            }
-            return new CommandRunner(Command.MARK, commandArguments);
+                if (commandArugmentsLength < 2) {
+                    throw new SnoopyException("Yo dawg, you should tell me the task number!");
+                }
+                return new CommandRunner(Command.MARK, commandArguments);
         case UNMARK:
             if (commandArugmentsLength < 2) {
                 throw new SnoopyException("Yo dawg, you should tell me the task number!");
@@ -73,14 +73,19 @@ public class InputReader {
             return new CommandRunner(Command.DEADLINE, commandArguments);
         case EVENT:
             isInvalid =
-                    (commandArugmentsLength < 2) || (commandArguments[1].contains(" /from ")) ||
-                        (commandArguments[1].contains(" /to "));
+                    (commandArugmentsLength < 2) || !(commandArguments[1].contains(" /from ")) ||
+                        !(commandArguments[1].contains(" /to "));
 
             if (isInvalid) {
                 throw new SnoopyException("Yo dawg, you should say this: event <insert description> /from <insert " +
                         "time> /to <insert time>");
             }
             return new CommandRunner(Command.EVENT, commandArguments);
+        case DELETE:
+            if (commandArugmentsLength < 2) {
+                throw new SnoopyException("Yo dawg, you should tell me the task number!");
+            }
+            return new CommandRunner(Command.DELETE, commandArguments);
         default:
             throw new InvalidCommandException("Yo dawg, I got no idea what ya saying!");
         }
