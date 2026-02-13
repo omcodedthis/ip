@@ -16,7 +16,8 @@ public class CommandRunner {
     private Command commandType;
     private String[] commandArguments;
     private boolean isExit;
-    private static final String OUTPUT_HORIZONTAL_LINE = "____________________________________________________________";
+    private static final String OUTPUT_HORIZONTAL_LINE =
+            "_______________________________________________________________________________________________";
     private static final String OUTPUT_SNOOPY_HEADER = "(Snoopy Says)";
 
     /**
