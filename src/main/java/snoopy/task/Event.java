@@ -58,6 +58,11 @@ public class Event extends Task {
         return this.to;
     }
 
+    /**
+     * Returns the string representation of the Event for file storage.
+     *
+     * @return A string containing the details of the Event.
+     */
     @Override
     public String toStringForStorage() {
         return "E | " + super.toStringForStorage() + " | " + this.from + " | " + this.to;

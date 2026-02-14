@@ -14,14 +14,21 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles reading from and writing to the persistent storage file for the application.
+ * Ensures that tasks are saved between sessions.
+ */
 public class SnoopyStorage {
 
-    private static final String OUTPUT_HORIZONTAL_LINE = "____________________________________________________________";
-    private static final String OUTPUT_SNOOPY_HEADER = "(Snoopy Says)";
     public static final String CURRENT_WORKING_DIRECTORY = System.getProperty("user.dir");
     private static final Path FILE_PATH = Paths.get(CURRENT_WORKING_DIRECTORY, "data", "SnoopyData.txt");
     private File snoopyDataFile;
 
+    /**
+     * Initializes the storage management.
+     * Checks for the existence of the data directory and the storage text file.
+     * If they do not exist, it creates them.
+     */
     public SnoopyStorage() {
         snoopyDataFile = FILE_PATH.toFile();
 
@@ -35,10 +42,16 @@ public class SnoopyStorage {
                 snoopyDataFile.createNewFile();
             }
         } catch (IOException e) {
-            System.out.println("Yo dawg, something went wrong creating the file: " + e.getMessage());
+            System.out.println("Yo dawg, something went wrong when creating the file: " + e.getMessage());
         }
     }
 
+    /**
+     * Reads tasks from the storage file, parses them, and returns them as a list.
+     * Invalid or corrupted lines in the text file are skipped with a warning printed to the console.
+     *
+     * @return An ArrayList containing the parsed Task objects. Returns an empty list if the file is empty or missing.
+     */
     public ArrayList<Task> loadFromFile() {
         ArrayList<Task> taskList = new ArrayList<>();
 
@@ -115,6 +128,12 @@ public class SnoopyStorage {
         return taskList;
     }
 
+    /**
+     * Writes the current list of tasks to the storage file.
+     * Overwrites the existing file content with the updated tasks.
+     *
+     * @param taskList The ArrayList of Task objects to be saved.
+     */
     public void saveToFile(ArrayList<Task> taskList) {
         try {
             FileWriter writer = new FileWriter(snoopyDataFile, false);
@@ -125,7 +144,7 @@ public class SnoopyStorage {
 
             writer.close();
         } catch (IOException e) {
-            System.out.println("Yo dawg, I couldn't save your data! " + e.getMessage());
+            System.out.println("Yo dawg, I could not save your data! " + e.getMessage());
         }
     }
 }

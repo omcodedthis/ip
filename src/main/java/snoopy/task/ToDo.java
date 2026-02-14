@@ -33,6 +33,11 @@ public class ToDo extends Task {
         return statusIcons;
     }
 
+    /**
+     * Returns the string representation of the ToDo for file storage.
+     *
+     * @return A string containing the details of the ToDo.
+     */
     @Override
     public String toStringForStorage() {
         return "T | " + super.toStringForStorage();

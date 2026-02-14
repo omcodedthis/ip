@@ -60,7 +60,11 @@ public class Task {
         this.isDone = false;
     }
 
-
+    /**
+     * Returns the string representation of the Task for file storage.
+     *
+     * @return A string containing the details of the Task.
+     */
     public String toStringForStorage() {
         return String.format(isDone + " | " + description);
     }

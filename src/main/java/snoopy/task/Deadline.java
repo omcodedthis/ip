@@ -46,6 +46,11 @@ public class Deadline extends Task {
         return doBy;
     }
 
+    /**
+     * Returns the string representation of the Deadline for file storage.
+     *
+     * @return A string containing the details of the Deadline.
+     */
     @Override
     public String toStringForStorage() {
         return "D | " + super.toStringForStorage() + " | " + this.doBy;
