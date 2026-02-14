@@ -32,4 +32,9 @@ public class ToDo extends Task {
         }
         return statusIcons;
     }
+
+    @Override
+    public String toStringForStorage() {
+        return "T | " + super.toStringForStorage();
+    }
 }

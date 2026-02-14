@@ -45,4 +45,9 @@ public class Deadline extends Task {
     public String getDoBy() {
         return doBy;
     }
+
+    @Override
+    public String toStringForStorage() {
+        return "D | " + super.toStringForStorage() + " | " + this.doBy;
+    }
 }

@@ -4,6 +4,7 @@ import snoopy.command.CommandRunner;
 import snoopy.command.InputReader;
 import snoopy.exception.SnoopyException;
 import snoopy.task.Task;
+import snoopy.storage.SnoopyStorage;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,6 +18,7 @@ public class Snoopy {
     private static final String OUTPUT_HORIZONTAL_LINE =
             "_______________________________________________________________________________________________";
     private static final String OUTPUT_SNOOPY_HEADER = "(Snoopy Says)";
+    private static final String OUTPUT_SNOOPY_STARTUP_LOG = "(Snoopy Startup Log - Reports Blank If No Issues)";
 
     /**
      * Entry point of the program.
@@ -36,19 +38,22 @@ public class Snoopy {
 
         System.out.println("What can I do for you dawg?");
         System.out.println(OUTPUT_HORIZONTAL_LINE);
+        System.out.println(OUTPUT_SNOOPY_STARTUP_LOG);
 
-        getCommandAndRun();
+        SnoopyStorage snoopyStorageSaver = new SnoopyStorage();
+        ArrayList<Task> taskList = snoopyStorageSaver.loadFromFile();
+        System.out.println(OUTPUT_HORIZONTAL_LINE);
+
+        getCommandAndRun(taskList, snoopyStorageSaver);
     }
 
     /**
      * Captures user input and passes it to the command engine.
      * Continues to prompt for input until the exit command is issued.
      *
-     * @throws Exception If an input/output error occurs or a command fails to execute.
      */
-    public static void getCommandAndRun() throws SnoopyException {
+    public static void getCommandAndRun(ArrayList<Task> taskList, SnoopyStorage snoopyStorageSaver) {
         boolean isExit = false;
-        ArrayList<Task> taskList = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         while (!isExit) {
             try {
@@ -57,6 +62,8 @@ public class Snoopy {
                 CommandRunner command = InputReader.readInput(input);
 
                 command.runCommand(taskList);
+
+                snoopyStorageSaver.saveToFile(taskList);
 
                 isExit = command.isExit();
             } catch (SnoopyException e) {

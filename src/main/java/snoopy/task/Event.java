@@ -57,4 +57,9 @@ public class Event extends Task {
     public String getTo() {
         return this.to;
     }
+
+    @Override
+    public String toStringForStorage() {
+        return "E | " + super.toStringForStorage() + " | " + this.from + " | " + this.to;
+    }
 }
