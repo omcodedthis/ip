@@ -48,6 +48,10 @@ public class CommandRunner {
             setToExit();
             break;
         case LIST:
+            if (taskList.size() == 0) {
+                throw new SnoopyException("Yo dawg, I am not tracking anything!");
+            }
+
             echoList(taskList);
             break;
         case MARK:
