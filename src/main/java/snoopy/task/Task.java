@@ -59,4 +59,9 @@ public class Task {
     public void unmarkDone() {
         this.isDone = false;
     }
+
+
+    public String toStringForStorage() {
+        return String.format(isDone + " | " + description);
+    }
 }

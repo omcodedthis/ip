@@ -73,8 +73,8 @@ public class InputReader {
             return new CommandRunner(Command.DEADLINE, commandArguments);
         case EVENT:
             isInvalid =
-                    (commandArugmentsLength < 2) || (commandArguments[1].contains(" /from ")) ||
-                        (commandArguments[1].contains(" /to "));
+                    (commandArugmentsLength < 2) || !(commandArguments[1].contains(" /from ")) ||
+                        !(commandArguments[1].contains(" /to "));
 
             if (isInvalid) {
                 throw new SnoopyException("Yo dawg, you should say this: event <insert description> /from <insert " +
