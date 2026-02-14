@@ -16,7 +16,8 @@ public class CommandRunner {
     private Command commandType;
     private String[] commandArguments;
     private boolean isExit;
-    private static final String OUTPUT_HORIZONTAL_LINE = "____________________________________________________________";
+    private static final String OUTPUT_HORIZONTAL_LINE =
+            "_______________________________________________________________________________________________";
     private static final String OUTPUT_SNOOPY_HEADER = "(Snoopy Says)";
 
     /**
@@ -73,6 +74,14 @@ public class CommandRunner {
             break;
         case EVENT:
             addEventToList(commandArguments, taskList);
+            break;
+        case DELETE:
+            argumentIndex = Integer.parseInt(this.commandArguments[1]) - 1;
+
+            if (argumentIndex < 0 || argumentIndex >= taskList.size()) {
+                throw new SnoopyException("Yo dawg, that task number is out of bounds!");
+            }
+            deleteFromList(argumentIndex, taskList);
             break;
         default:
             break;
@@ -185,7 +194,7 @@ public class CommandRunner {
     public static void addDeadlineToList(String[] commandArguments, ArrayList<Task> taskList) throws SnoopyException {
         String[] deadlineParts = commandArguments[1].split(" /by ", 2);
         if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty() || deadlineParts[1].trim().isEmpty()) {
-            throw new SnoopyException("Yo dawg, you can't have an empty description or date!");
+            throw new SnoopyException("Yo dawg, you cannot have an empty description or date!");
         }
 
         String description = deadlineParts[0];
@@ -235,6 +244,28 @@ public class CommandRunner {
         System.out.println(OUTPUT_SNOOPY_HEADER);
         System.out.println("No problemo. I have added this Event to the list:");
         System.out.println(statusIcons + description + " (from: " + event.getFrom() + " to: " + event.getTo() + ")");
+        System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
+        System.out.println(OUTPUT_HORIZONTAL_LINE);
+    }
+
+    /**
+     * Remove the given task index from taskList.
+     * Can mark a task as either done or not done based on the isDone flag.
+     *
+     * @param index The 0-based index of the task in the taskList to delete.
+     * @param taskList The list of tasks containing the target task.
+     */
+    public static void deleteFromList(int index, ArrayList<Task> taskList) {
+        Task task = taskList.get(index);
+        String taskType = task.getClass().getSimpleName();
+        String statusIcons = task.getStatusIcons();
+        String description = task.getDescription();
+
+        System.out.println(OUTPUT_HORIZONTAL_LINE);
+        System.out.println(OUTPUT_SNOOPY_HEADER);
+        System.out.println("No problemo. I will delete this " + taskType + " from the list:");
+        System.out.println(statusIcons + description);
+        taskList.remove(index);
         System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
         System.out.println(OUTPUT_HORIZONTAL_LINE);
     }
