@@ -1,10 +1,10 @@
 package snoopy.ui;
 
 import snoopy.command.CommandRunner;
-import snoopy.command.InputReader;
+import snoopy.command.Parser;
 import snoopy.exception.SnoopyException;
 import snoopy.task.Task;
-import snoopy.storage.SnoopyStorage;
+import snoopy.storage.Storage;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -40,11 +40,11 @@ public class Snoopy {
         System.out.println(OUTPUT_HORIZONTAL_LINE);
         System.out.println(OUTPUT_SNOOPY_STARTUP_LOG);
 
-        SnoopyStorage snoopyStorageSaver = new SnoopyStorage();
-        ArrayList<Task> taskList = snoopyStorageSaver.loadFromFile();
+        Storage storageSaver = new Storage();
+        ArrayList<Task> taskList = storageSaver.loadFromFile();
         System.out.println(OUTPUT_HORIZONTAL_LINE);
 
-        getCommandAndRun(taskList, snoopyStorageSaver);
+        getCommandAndRun(taskList, storageSaver);
     }
 
     /**
@@ -52,18 +52,18 @@ public class Snoopy {
      * Continues to prompt for input until the exit command is issued.
      *
      */
-    public static void getCommandAndRun(ArrayList<Task> taskList, SnoopyStorage snoopyStorageSaver) {
+    public static void getCommandAndRun(ArrayList<Task> taskList, Storage storageSaver) {
         boolean isExit = false;
         Scanner scanner = new Scanner(System.in);
         while (!isExit) {
             try {
                 System.out.print("Your input: ");
                 String input = scanner.nextLine();
-                CommandRunner command = InputReader.readInput(input);
+                CommandRunner command = Parser.readInput(input);
 
                 command.runCommand(taskList);
 
-                snoopyStorageSaver.saveToFile(taskList);
+                storageSaver.saveToFile(taskList);
 
                 isExit = command.isExit();
             } catch (SnoopyException e) {

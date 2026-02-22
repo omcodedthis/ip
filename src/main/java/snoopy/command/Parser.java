@@ -7,7 +7,7 @@ import snoopy.exception.SnoopyException;
  * Handles the parsing of user input.
  * Converts raw input strings into executable CommandRunner objects.
  */
-public class InputReader {
+public class Parser {
 
     /**
      * Parses the user's raw input string and returns the corresponding CommandRunner with the correct command type.

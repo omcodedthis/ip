@@ -18,7 +18,7 @@ import java.util.Scanner;
  * Handles reading from and writing to the persistent storage file for the application.
  * Ensures that tasks are saved between sessions.
  */
-public class SnoopyStorage {
+public class Storage {
 
     public static final String CURRENT_WORKING_DIRECTORY = System.getProperty("user.dir");
     private static final Path FILE_PATH = Paths.get(CURRENT_WORKING_DIRECTORY, "data", "SnoopyData.txt");
@@ -29,7 +29,7 @@ public class SnoopyStorage {
      * Checks for the existence of the data directory and the storage text file.
      * If they do not exist, it creates them.
      */
-    public SnoopyStorage() {
+    public Storage() {
         snoopyDataFile = FILE_PATH.toFile();
 
         try {
@@ -139,7 +139,7 @@ public class SnoopyStorage {
             FileWriter writer = new FileWriter(snoopyDataFile, false);
 
             for (Task task : taskList) {
-                writer.write(task.toStringForStorage() + "\n");
+                writer.write(task.toStringForStorage() + System.lineSeparator());
             }
 
             writer.close();
