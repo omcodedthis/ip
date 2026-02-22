@@ -61,7 +61,7 @@ public class Event extends Task {
     /**
      * Returns the string representation of the Event for file storage.
      *
-     * @return A string containing the details of the Event.
+     * @return A string containing the details of the Event formatted for file storage.
      */
     @Override
     public String toStringForStorage() {

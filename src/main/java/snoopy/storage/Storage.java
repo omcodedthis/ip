@@ -12,12 +12,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Handles reading from and writing to the persistent storage file for the application.
- * Ensures that tasks are saved between sessions.
+ * Handles reading from and writing to the persistent storage file for Snoopy.
+ * Ensures that the task list is saved between sessions.
  */
 public class Storage {
 
@@ -27,7 +26,7 @@ public class Storage {
 
     /**
      * Initializes the storage management.
-     * Checks for the existence of the data directory and the storage text file.
+     * Checks for the existence of the data directory and the storage text file, SnoopyData.txt.
      * If they do not exist, it creates them.
      */
     public Storage() {
@@ -51,7 +50,7 @@ public class Storage {
      * Reads tasks from the storage file, parses them, and returns them as a list.
      * Invalid or corrupted lines in the text file are skipped with a warning printed to the console.
      *
-     * @return An ArrayList containing the parsed Task objects. Returns an empty list if the file is empty or missing.
+     * @return A TaskList object containing the saved Tasks. Returns an empty TaskList if the file is empty or missing.
      */
     public TaskList loadFromFile() {
         TaskList taskList = new TaskList();
@@ -131,9 +130,9 @@ public class Storage {
 
     /**
      * Writes the current list of tasks to the storage file.
-     * Overwrites the existing file content with the updated tasks.
+     * Overwrites the existing file content with the updated Tasks.
      *
-     * @param taskList The ArrayList of Task objects to be saved.
+     * @param taskList The TaskList containing the Task objects to be saved.
      */
     public void saveToFile(TaskList taskList) {
         try {

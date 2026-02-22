@@ -63,7 +63,7 @@ public class Task {
     /**
      * Returns the string representation of the Task for file storage.
      *
-     * @return A string containing the details of the Task.
+     * @return A string containing the details of the Task formatted for file storage.
      */
     public String toStringForStorage() {
         return String.format(isDone + " | " + description);

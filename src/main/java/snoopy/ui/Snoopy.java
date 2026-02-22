@@ -19,6 +19,10 @@ public class Snoopy {
     private final Storage storageSaver;
     private final TaskList taskList;
 
+    /**
+     * Initializes the Snoopy application.
+     * Sets up the user interface, scanner, storage, and loads existing tasks from the file.
+     */
     public Snoopy() {
         this.ui = new Ui();
         this.scanner = new Scanner(System.in);
@@ -32,7 +36,6 @@ public class Snoopy {
     /**
      * Captures user input and passes it to the command engine.
      * Continues to prompt for input until the exit command is issued.
-     *
      */
     public void run() {
         boolean isExit = false;
@@ -55,6 +58,11 @@ public class Snoopy {
         scanner.close();
     }
 
+    /**
+     * The main method to start the Snoopy application.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         new Snoopy().run();
     }

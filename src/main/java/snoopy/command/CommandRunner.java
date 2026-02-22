@@ -35,6 +35,8 @@ public class CommandRunner {
      * Handles commands such as "bye", "list", "mark", and "unmark".
      *
      * @param taskList List of tasks to be modified or displayed.
+     * @param ui The user interface to handle console outputs.
+     * @throws SnoopyException If an invalid task number is provided or an empty list is accessed.
      */
     public void runCommand(TaskList taskList, Ui ui) throws SnoopyException {
         switch (commandType) {
@@ -82,7 +84,7 @@ public class CommandRunner {
             taskList.deleteFromList(deleteArgumentIndex, ui);
             break;
         case FIND:
-            String keyword =this.commandArguments[1].trim().toLowerCase();
+            String keyword = this.commandArguments[1].trim().toLowerCase();
             taskList.findTasksWithKeyword(keyword, ui);
             break;
         default:

@@ -100,6 +100,11 @@ public class Ui {
         System.out.println(task.getStatusIcons() + task.getDescription());
     }
 
+    /**
+     * Iterates through the provided task list and prints each task with its corresponding index, status, and details.
+     *
+     * @param taskList The task list containing the tasks to be printed.
+     */
     public void printOutList(TaskList taskList) {
         for (int i = 0; i < taskList.getSize(); i++) {
             Task currentTask = taskList.getTaskFromIndex(i);
@@ -202,12 +207,22 @@ public class Ui {
         printOutputFooter();
     }
 
+    /**
+     * Prints a message indicating that no tasks were found matching the given keyword.
+     *
+     * @param keyword The search keyword that yielded no results.
+     */
     public void printNoFoundTasksMessage(String keyword) {
         printOutputHeader();
         System.out.println("No tasks with the keyword of " + keyword + " were found!");
         printOutputFooter();
     }
 
+    /**
+     * Prints the list of tasks that contains the given keyword.
+     *
+     * @param foundTasks The task list containing the matched tasks.
+     */
     public void printFoundTasksList(TaskList foundTasks) {
         printOutputHeader();
 

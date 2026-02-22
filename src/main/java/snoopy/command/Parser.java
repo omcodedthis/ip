@@ -15,7 +15,7 @@ public class Parser {
      *
      * @param input The raw input string entered by the user.
      * @return A CommandRunner configured with the correct command type and input arguments.
-     * @throws Exception If the command is not recognized (invalid command).
+     * @throws SnoopyException If the command is not recognized or if the provided format is incorrect.
      */
     public static CommandRunner readInput(String input) throws SnoopyException {
         // Check if input is empty
@@ -47,10 +47,10 @@ public class Parser {
             }
             return new CommandRunner(Command.LIST, commandArguments);
         case MARK:
-                if (commandArugmentsLength < 2) {
-                    throw new SnoopyException("Yo dawg, you should tell me the task number!");
-                }
-                return new CommandRunner(Command.MARK, commandArguments);
+            if (commandArugmentsLength < 2) {
+                throw new SnoopyException("Yo dawg, you should tell me the task number!");
+            }
+            return new CommandRunner(Command.MARK, commandArguments);
         case UNMARK:
             if (commandArugmentsLength < 2) {
                 throw new SnoopyException("Yo dawg, you should tell me the task number!");
@@ -74,7 +74,7 @@ public class Parser {
         case EVENT:
             isInvalid =
                     (commandArugmentsLength < 2) || !(commandArguments[1].contains(" /from ")) ||
-                        !(commandArguments[1].contains(" /to "));
+                            !(commandArguments[1].contains(" /to "));
 
             if (isInvalid) {
                 throw new SnoopyException("Yo dawg, you should say this: event <insert description> /from <insert " +

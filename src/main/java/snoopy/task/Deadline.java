@@ -49,7 +49,7 @@ public class Deadline extends Task {
     /**
      * Returns the string representation of the Deadline for file storage.
      *
-     * @return A string containing the details of the Deadline.
+     * @return A string containing the details of the Deadline formatted for file storage.
      */
     @Override
     public String toStringForStorage() {

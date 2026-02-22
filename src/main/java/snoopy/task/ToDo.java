@@ -36,7 +36,7 @@ public class ToDo extends Task {
     /**
      * Returns the string representation of the ToDo for file storage.
      *
-     * @return A string containing the details of the ToDo.
+     * @return A string containing the details of the ToDo formatted for file storage.
      */
     @Override
     public String toStringForStorage() {

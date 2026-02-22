@@ -52,6 +52,7 @@ public class TaskList {
      *
      * @param index Index of the task to update.
      * @param isDone Boolean representing whether the task is completed.
+     * @param ui The user interface to handle console outputs.
      */
     public void setTaskIsDoneValue(int index, boolean isDone, Ui ui) {
         Task task = taskList.get(index);
@@ -71,6 +72,7 @@ public class TaskList {
 
     /**
      * Prints all currently tracked tasks to the console.
+     * * @param ui The user interface to handle console outputs.
      */
     public void echoList(Ui ui) {
         ui.printListFromTaskList(this);
@@ -80,6 +82,7 @@ public class TaskList {
      * Adds a new ToDo task to the list and prints a confirmation.
      *
      * @param commandArguments Array containing the command and the task description.
+     * @param ui The user interface to handle console outputs.
      */
     public void addToDoToList(String[] commandArguments, Ui ui) {
         String description = commandArguments[1];
@@ -94,6 +97,7 @@ public class TaskList {
      * Adds a new Deadline task to the list and prints a confirmation.
      *
      * @param commandArguments Array containing the command, description, and deadline date.
+     * @param ui The user interface to handle console outputs.
      * @throws SnoopyException If the description or date is empty.
      */
     public void addDeadlineToList(String[] commandArguments, Ui ui) throws SnoopyException {
@@ -116,6 +120,7 @@ public class TaskList {
      * Adds a new Event task to the list and prints a confirmation.
      *
      * @param commandArguments Array containing the command, description, start time, and end time.
+     * @param ui The user interface to handle console outputs.
      * @throws SnoopyException If the description, start time, or end time is empty or missing.
      */
     public void addEventToList(String[] commandArguments, Ui ui) throws SnoopyException {
@@ -146,6 +151,7 @@ public class TaskList {
      * Deletes the task at the specified index from the list and prints a confirmation.
      *
      * @param index Index of the task to be deleted.
+     * @param ui The user interface to handle console outputs.
      */
     public void deleteFromList(int index, Ui ui) {
         Task task = taskList.get(index);
@@ -158,6 +164,12 @@ public class TaskList {
         ui.printAfterDeleteMessage(this.getSize());
     }
 
+    /**
+     * Finds tasks containing the specified keyword in their description and prints the results.
+     *
+     * @param keyword The keyword to search for within task descriptions.
+     * @param ui The user interface to handle console outputs.
+     */
     public void findTasksWithKeyword(String keyword, Ui ui) {
         TaskList foundTasks = new TaskList();
         for (int i = 0; i < this.getSize(); i++) {
