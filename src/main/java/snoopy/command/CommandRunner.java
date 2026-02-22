@@ -1,8 +1,12 @@
 package snoopy.command;
 
 import snoopy.exception.SnoopyException;
+import snoopy.task.Task;
 import snoopy.task.TaskList;
 import snoopy.ui.Ui;
+
+import java.util.ArrayList;
+import java.util.SimpleTimeZone;
 
 /**
  * Handles the execution of user commands and manages the application state.
@@ -76,6 +80,10 @@ public class CommandRunner {
                 throw new SnoopyException("Yo dawg, that task number is out of bounds!");
             }
             taskList.deleteFromList(deleteArgumentIndex, ui);
+            break;
+        case FIND:
+            String keyword =this.commandArguments[1].trim().toLowerCase();
+            taskList.findTasksWithKeyword(keyword, ui);
             break;
         default:
             break;

@@ -100,15 +100,7 @@ public class Ui {
         System.out.println(task.getStatusIcons() + task.getDescription());
     }
 
-    /**
-     * Prints all tasks currently stored in the provided task list.
-     *
-     * @param taskList The task list containing the tasks to be printed.
-     */
-    public void printListFromTaskList(TaskList taskList) {
-        printOutputHeader();
-
-        System.out.println("Here is everything I am tracking dawg:");
+    public void printOutList(TaskList taskList) {
         for (int i = 0; i < taskList.getSize(); i++) {
             Task currentTask = taskList.getTaskFromIndex(i);
 
@@ -124,6 +116,18 @@ public class Ui {
                 System.out.println();
             }
         }
+    }
+
+    /**
+     * Prints all tasks currently stored in the provided task list.
+     *
+     * @param taskList The task list containing the tasks to be printed.
+     */
+    public void printListFromTaskList(TaskList taskList) {
+        printOutputHeader();
+
+        System.out.println("Here is everything I am tracking dawg:");
+        printOutList(taskList);
         printOutputFooter();
     }
 
@@ -195,6 +199,20 @@ public class Ui {
      */
     public void printAfterDeleteMessage(int currentSize) {
         System.out.println("Now you have " + currentSize + " task(s) in the list.");
+        printOutputFooter();
+    }
+
+    public void printNoFoundTasksMessage(String keyword) {
+        printOutputHeader();
+        System.out.println("No tasks with the keyword of " + keyword + " were found!");
+        printOutputFooter();
+    }
+
+    public void printFoundTasksList(TaskList foundTasks) {
+        printOutputHeader();
+
+        System.out.println("Here is everything I found dawg:");
+        printOutList(foundTasks);
         printOutputFooter();
     }
 }

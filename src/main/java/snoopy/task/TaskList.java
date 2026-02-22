@@ -157,4 +157,20 @@ public class TaskList {
         taskList.remove(index);
         ui.printAfterDeleteMessage(this.getSize());
     }
+
+    public void findTasksWithKeyword(String keyword, Ui ui) {
+        TaskList foundTasks = new TaskList();
+        for (int i = 0; i < this.getSize(); i++) {
+            Task currentTask = taskList.get(i);
+            if (currentTask.getDescription().toLowerCase().contains(keyword)) {
+                foundTasks.addTasktoList(currentTask);
+            }
+        }
+
+        if (foundTasks.getSize() == 0) {
+            ui.printNoFoundTasksMessage(keyword);
+        } else {
+            ui.printFoundTasksList(foundTasks);
+        }
+    }
 }
