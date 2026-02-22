@@ -86,6 +86,11 @@ public class Parser {
                 throw new SnoopyException("Yo dawg, you should tell me the task number!");
             }
             return new CommandRunner(Command.DELETE, commandArguments);
+        case FIND:
+            if (commandArugmentsLength < 2 || commandArguments[1].trim().isEmpty()) {
+                throw new SnoopyException("Yo dawg, you should say this: find <insert keyword>");
+            }
+            return new CommandRunner(Command.FIND, commandArguments);
         default:
             throw new InvalidCommandException("Yo dawg, I got no idea what ya saying!");
         }
