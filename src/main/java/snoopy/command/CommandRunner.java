@@ -21,7 +21,7 @@ public class CommandRunner {
      * Initializes the command engine.
      * Sets the exit state to false.
      *
-     * @param commandType The type of command to be executed (e.g., LIST, TODO).
+     * @param commandType The type of command to be executed.
      * @param commandArguments The full array of parsed command arguments.
      */
     public CommandRunner(Command commandType, String[] commandArguments) {
