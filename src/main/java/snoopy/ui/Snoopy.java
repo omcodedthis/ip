@@ -5,6 +5,7 @@ import snoopy.command.Parser;
 import snoopy.exception.SnoopyException;
 import snoopy.task.Task;
 import snoopy.storage.Storage;
+import snoopy.task.TaskList;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -41,7 +42,7 @@ public class Snoopy {
         System.out.println(OUTPUT_SNOOPY_STARTUP_LOG);
 
         Storage storageSaver = new Storage();
-        ArrayList<Task> taskList = storageSaver.loadFromFile();
+        TaskList taskList = storageSaver.loadFromFile();
         System.out.println(OUTPUT_HORIZONTAL_LINE);
 
         getCommandAndRun(taskList, storageSaver);
@@ -52,7 +53,7 @@ public class Snoopy {
      * Continues to prompt for input until the exit command is issued.
      *
      */
-    public static void getCommandAndRun(ArrayList<Task> taskList, Storage storageSaver) {
+    public static void getCommandAndRun(TaskList taskList, Storage storageSaver) {
         boolean isExit = false;
         Scanner scanner = new Scanner(System.in);
         while (!isExit) {

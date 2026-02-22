@@ -3,6 +3,7 @@ package snoopy.storage;
 import snoopy.task.Deadline;
 import snoopy.task.Event;
 import snoopy.task.Task;
+import snoopy.task.TaskList;
 import snoopy.task.ToDo;
 
 import java.io.File;
@@ -52,8 +53,8 @@ public class Storage {
      *
      * @return An ArrayList containing the parsed Task objects. Returns an empty list if the file is empty or missing.
      */
-    public ArrayList<Task> loadFromFile() {
-        ArrayList<Task> taskList = new ArrayList<>();
+    public TaskList loadFromFile() {
+        TaskList taskList = new TaskList();
 
         try {
             Scanner scanner = new Scanner(snoopyDataFile);
@@ -116,7 +117,7 @@ public class Storage {
                     if (isDone) {
                         task.markDone();
                     }
-                    taskList.add(task);
+                    taskList.addTasktoList(task);
                 }
             }
             scanner.close();
@@ -134,11 +135,12 @@ public class Storage {
      *
      * @param taskList The ArrayList of Task objects to be saved.
      */
-    public void saveToFile(ArrayList<Task> taskList) {
+    public void saveToFile(TaskList taskList) {
         try {
             FileWriter writer = new FileWriter(snoopyDataFile, false);
 
-            for (Task task : taskList) {
+            for (int i = 0; i < taskList.getSize(); i++) {
+                Task task = taskList.getTaskFromIndex(i);
                 writer.write(task.toStringForStorage() + System.lineSeparator());
             }
 
