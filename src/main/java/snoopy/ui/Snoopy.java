@@ -3,11 +3,9 @@ package snoopy.ui;
 import snoopy.command.CommandRunner;
 import snoopy.command.Parser;
 import snoopy.exception.SnoopyException;
-import snoopy.task.Task;
 import snoopy.storage.Storage;
 import snoopy.task.TaskList;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -16,36 +14,19 @@ import java.util.Scanner;
  */
 public class Snoopy {
 
-    private static final String OUTPUT_HORIZONTAL_LINE =
-            "_______________________________________________________________________________________________";
-    private static final String OUTPUT_SNOOPY_HEADER = "(Snoopy Says)";
-    private static final String OUTPUT_SNOOPY_STARTUP_LOG = "(Snoopy Startup Log - Reports Blank If No Issues)";
+    private final Ui ui;
+    private final Scanner scanner;
+    private final Storage storageSaver;
+    private final TaskList taskList;
 
-    /**
-     * Entry point of the program.
-     * Displays the 'Snoopy' logo and starts the command processing loop.
-     *
-     * @param args Command line arguments (not used).
-     * @throws Exception If an error occurs during the execution of the command loop.
-     */
-    public static void main(String[] args) throws Exception {
-        String logo = "\n ____                                      \n"
-                + "/ ___| _ __   ___   ___  _ __  _   _   \n"
-                + "\\___ \\| '_ \\ / _ \\ / _ \\| '_ \\| | | |  \n"
-                + " ___) | | | | (_) | (_) | |_) | |_| |  \n"
-                + "|____/|_| |_|\\___/ \\___/| .__/ \\__, |  \n"
-                + "                        |_|    |___/   \n";
-        System.out.println("Hello from" + logo);
+    public Snoopy() {
+        this.ui = new Ui();
+        this.scanner = new Scanner(System.in);
+        this.storageSaver = new Storage();
 
-        System.out.println("What can I do for you dawg?");
-        System.out.println(OUTPUT_HORIZONTAL_LINE);
-        System.out.println(OUTPUT_SNOOPY_STARTUP_LOG);
-
-        Storage storageSaver = new Storage();
-        TaskList taskList = storageSaver.loadFromFile();
-        System.out.println(OUTPUT_HORIZONTAL_LINE);
-
-        getCommandAndRun(taskList, storageSaver);
+        ui.printStartUpMessage();
+        this.taskList = storageSaver.loadFromFile();
+        ui.printOutputFooter();
     }
 
     /**
@@ -53,27 +34,28 @@ public class Snoopy {
      * Continues to prompt for input until the exit command is issued.
      *
      */
-    public static void getCommandAndRun(TaskList taskList, Storage storageSaver) {
+    public void run() {
         boolean isExit = false;
-        Scanner scanner = new Scanner(System.in);
         while (!isExit) {
             try {
-                System.out.print("Your input: ");
+                ui.printUserInputPrompt();
                 String input = scanner.nextLine();
                 CommandRunner command = Parser.readInput(input);
 
-                command.runCommand(taskList);
+                command.runCommand(taskList, ui);
 
                 storageSaver.saveToFile(taskList);
 
                 isExit = command.isExit();
             } catch (SnoopyException e) {
-                System.out.println(OUTPUT_HORIZONTAL_LINE);
-                System.out.println(OUTPUT_SNOOPY_HEADER);
-                System.out.println(e.getMessage());
-                System.out.println(OUTPUT_HORIZONTAL_LINE);
+                ui.printErrorMessage(e.getMessage());
             }
         }
+        ui.printExitMessage();
         scanner.close();
+    }
+
+    public static void main(String[] args) {
+        new Snoopy().run();
     }
 }

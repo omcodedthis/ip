@@ -1,13 +1,8 @@
 package snoopy.command;
 
 import snoopy.exception.SnoopyException;
-import snoopy.task.Deadline;
-import snoopy.task.Event;
-import snoopy.task.Task;
 import snoopy.task.TaskList;
-import snoopy.task.ToDo;
-
-import java.util.ArrayList;
+import snoopy.ui.Ui;
 
 /**
  * Handles the execution of user commands and manages the application state.
@@ -17,9 +12,6 @@ public class CommandRunner {
     private Command commandType;
     private String[] commandArguments;
     private boolean isExit;
-    private static final String OUTPUT_HORIZONTAL_LINE =
-            "_______________________________________________________________________________________________";
-    private static final String OUTPUT_SNOOPY_HEADER = "(Snoopy Says)";
 
     /**
      * Initializes the command engine.
@@ -40,7 +32,7 @@ public class CommandRunner {
      *
      * @param taskList List of tasks to be modified or displayed.
      */
-    public void runCommand(TaskList taskList) throws SnoopyException {
+    public void runCommand(TaskList taskList, Ui ui) throws SnoopyException {
         switch (commandType) {
         case BYE:
             setToExit();
@@ -50,7 +42,7 @@ public class CommandRunner {
                 throw new SnoopyException("Yo dawg, I am not tracking anything!");
             }
 
-            taskList.echoList();
+            taskList.echoList(ui);
             break;
         case MARK:
             int markArgumentIndex = Integer.parseInt(this.commandArguments[1]) - 1;
@@ -58,7 +50,7 @@ public class CommandRunner {
             if (markArgumentIndex < 0 || markArgumentIndex >= taskList.getSize()) {
                 throw new SnoopyException("Yo dawg, that task number is out of bounds!");
             }
-            taskList.setTaskIsDoneValue(markArgumentIndex, true);
+            taskList.setTaskIsDoneValue(markArgumentIndex, true, ui);
             break;
         case UNMARK:
             int unmarkArgumentIndex = Integer.parseInt(this.commandArguments[1]) - 1;
@@ -66,16 +58,16 @@ public class CommandRunner {
             if (unmarkArgumentIndex < 0 || unmarkArgumentIndex >= taskList.getSize()) {
                 throw new SnoopyException("Yo dawg, that task number is out of bounds!");
             }
-            taskList.setTaskIsDoneValue(unmarkArgumentIndex, false);
+            taskList.setTaskIsDoneValue(unmarkArgumentIndex, false, ui);
             break;
         case TODO:
-            taskList.addToDoToList(commandArguments);
+            taskList.addToDoToList(commandArguments, ui);
             break;
         case DEADLINE:
-            taskList.addDeadlineToList(commandArguments);
+            taskList.addDeadlineToList(commandArguments, ui);
             break;
         case EVENT:
-            taskList.addEventToList(commandArguments);
+            taskList.addEventToList(commandArguments, ui);
             break;
         case DELETE:
             int deleteArgumentIndex = Integer.parseInt(this.commandArguments[1]) - 1;
@@ -83,7 +75,7 @@ public class CommandRunner {
             if (deleteArgumentIndex < 0 || deleteArgumentIndex >= taskList.getSize()) {
                 throw new SnoopyException("Yo dawg, that task number is out of bounds!");
             }
-            taskList.deleteFromList(deleteArgumentIndex);
+            taskList.deleteFromList(deleteArgumentIndex, ui);
             break;
         default:
             break;
@@ -91,15 +83,9 @@ public class CommandRunner {
     }
 
     /**
-     * Prints the 'BYE' message.
      * Sets isExit to true.
      */
     public void setToExit() {
-        System.out.println(OUTPUT_HORIZONTAL_LINE);
-        System.out.println(OUTPUT_SNOOPY_HEADER);
-        System.out.println("Ciao! See ya later.");
-        System.out.println(OUTPUT_HORIZONTAL_LINE);
-
         this.isExit = true;
     }
 

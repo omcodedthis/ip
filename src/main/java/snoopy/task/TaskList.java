@@ -1,6 +1,7 @@
 package snoopy.task;
 
 import snoopy.exception.SnoopyException;
+import snoopy.ui.Ui;
 
 import java.util.ArrayList;
 
@@ -8,9 +9,6 @@ import java.util.ArrayList;
  * Represents a list of tasks and handles operations such as adding, deleting, and displaying tasks.
  */
 public class TaskList {
-    private static final String OUTPUT_HORIZONTAL_LINE =
-            "_______________________________________________________________________________________________";
-    private static final String OUTPUT_SNOOPY_HEADER = "(Snoopy Says)";
 
     private ArrayList<Task> taskList;
 
@@ -55,47 +53,27 @@ public class TaskList {
      * @param index Index of the task to update.
      * @param isDone Boolean representing whether the task is completed.
      */
-    public void setTaskIsDoneValue(int index, boolean isDone) {
+    public void setTaskIsDoneValue(int index, boolean isDone, Ui ui) {
         Task task = taskList.get(index);
-        System.out.println(OUTPUT_HORIZONTAL_LINE);
-        System.out.println(OUTPUT_SNOOPY_HEADER);
+        ui.printOutputHeader();
 
         if (isDone) {
             task.markDone();
-            System.out.println("Marked this as done dawg:");
+            ui.printMarkDoneMessage();
         } else {
             task.unmarkDone();
-            System.out.println("Marked this not done dawg, you gotta double up:");
+            ui.printUnMarkDoneMessage();
         }
 
-        System.out.println(task.getStatusIcons() + task.getDescription());
-        System.out.println(OUTPUT_HORIZONTAL_LINE);
+        ui.printTask(task);
+        ui.printOutputFooter();
     }
 
     /**
      * Prints all currently tracked tasks to the console.
      */
-    public void echoList() {
-        System.out.println(OUTPUT_HORIZONTAL_LINE);
-        System.out.println(OUTPUT_SNOOPY_HEADER);
-
-        System.out.println("Here is everything I am tracking dawg:");
-        for (int i = 0; i < this.getSize(); i++) {
-            Task currentTask = taskList.get(i);
-
-            String currentTaskName = currentTask.getDescription();
-            String currentTaskStatus = currentTask.getStatusIcons();
-            System.out.print("     " + (i + 1) + ". " + currentTaskStatus + currentTaskName);
-
-            if (currentTask instanceof Deadline deadline) {
-                System.out.println(" (by: " + deadline.getDoBy() + ")");
-            } else if (currentTask instanceof Event event) {
-                System.out.println(" (from: " + event.getFrom() + " to: " + event.getTo() + ")");
-            } else {
-                System.out.println();
-            }
-        }
-        System.out.println(OUTPUT_HORIZONTAL_LINE);
+    public void echoList(Ui ui) {
+        ui.printListFromTaskList(this);
     }
 
     /**
@@ -103,18 +81,13 @@ public class TaskList {
      *
      * @param commandArguments Array containing the command and the task description.
      */
-    public void addToDoToList(String[] commandArguments) {
+    public void addToDoToList(String[] commandArguments, Ui ui) {
         String description = commandArguments[1];
         ToDo todo = new ToDo(description);
         this.addTasktoList(todo);
         String statusIcons = todo.getStatusIcons();
 
-        System.out.println(OUTPUT_HORIZONTAL_LINE);
-        System.out.println(OUTPUT_SNOOPY_HEADER);
-        System.out.println("No problemo. I have added this ToDo to the list:");
-        System.out.println(statusIcons + description);
-        System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
-        System.out.println(OUTPUT_HORIZONTAL_LINE);
+        ui.printAddToDoMessage(statusIcons, description, this.getSize());
     }
 
     /**
@@ -123,7 +96,7 @@ public class TaskList {
      * @param commandArguments Array containing the command, description, and deadline date.
      * @throws SnoopyException If the description or date is empty.
      */
-    public void addDeadlineToList(String[] commandArguments) throws SnoopyException {
+    public void addDeadlineToList(String[] commandArguments, Ui ui) throws SnoopyException {
         String[] deadlineParts = commandArguments[1].split(" /by ", 2);
         if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty() || deadlineParts[1].trim().isEmpty()) {
             throw new SnoopyException("Yo dawg, you cannot have an empty description or date!");
@@ -136,12 +109,7 @@ public class TaskList {
         this.addTasktoList(deadline);
         String statusIcons = deadline.getStatusIcons();
 
-        System.out.println(OUTPUT_HORIZONTAL_LINE);
-        System.out.println(OUTPUT_SNOOPY_HEADER);
-        System.out.println("No problemo. I have added this Deadline to the list:");
-        System.out.println(statusIcons + description + " (by: " + deadline.getDoBy() + ")");
-        System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
-        System.out.println(OUTPUT_HORIZONTAL_LINE);
+        ui.printAddDeadlineMessage(statusIcons, description, doBy, this.getSize());
     }
 
     /**
@@ -150,7 +118,7 @@ public class TaskList {
      * @param commandArguments Array containing the command, description, start time, and end time.
      * @throws SnoopyException If the description, start time, or end time is empty or missing.
      */
-    public void addEventToList(String[] commandArguments) throws SnoopyException {
+    public void addEventToList(String[] commandArguments, Ui ui) throws SnoopyException {
         String[] partsFrom = commandArguments[1].split(" /from ", 2);
 
         if (partsFrom.length < 2 || partsFrom[0].trim().isEmpty() || partsFrom[1].trim().isEmpty()) {
@@ -171,12 +139,7 @@ public class TaskList {
         this.addTasktoList(event);
         String statusIcons = event.getStatusIcons();
 
-        System.out.println(OUTPUT_HORIZONTAL_LINE);
-        System.out.println(OUTPUT_SNOOPY_HEADER);
-        System.out.println("No problemo. I have added this Event to the list:");
-        System.out.println(statusIcons + description + " (from: " + event.getFrom() + " to: " + event.getTo() + ")");
-        System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
-        System.out.println(OUTPUT_HORIZONTAL_LINE);
+        ui.printAddEventMessage(statusIcons, description, from, to, this.getSize());
     }
 
     /**
@@ -184,18 +147,14 @@ public class TaskList {
      *
      * @param index Index of the task to be deleted.
      */
-    public void deleteFromList(int index) {
+    public void deleteFromList(int index, Ui ui) {
         Task task = taskList.get(index);
         String taskType = task.getClass().getSimpleName();
         String statusIcons = task.getStatusIcons();
         String description = task.getDescription();
 
-        System.out.println(OUTPUT_HORIZONTAL_LINE);
-        System.out.println(OUTPUT_SNOOPY_HEADER);
-        System.out.println("No problemo. I will delete this " + taskType + " from the list:");
-        System.out.println(statusIcons + description);
+        ui.printBeforeDeleteMessage(taskType, statusIcons, description);
         taskList.remove(index);
-        System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
-        System.out.println(OUTPUT_HORIZONTAL_LINE);
+        ui.printAfterDeleteMessage(this.getSize());
     }
 }
