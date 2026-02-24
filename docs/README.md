@@ -1,5 +1,5 @@
 # Snoopy User Guide
-<img width="1359" height="560" alt="image" src="https://github.com/user-attachments/assets/b345b675-351f-4217-8388-83d780c296e6" />
+<img width="996" height="560" alt="image (5)" src="https://github.com/user-attachments/assets/def16a3f-3cb1-47dd-bb9e-3608fcf8e011" />
 Snoopy is a desktop app for managing your personal tasks and schedules, optimized for use via a Command Line Interface (CLI). If you can type fast, Snoopy can get your task management done faster than traditional GUI apps.
 
 # Quick Start
@@ -142,3 +142,39 @@ Here is everything I found dawg:
      2. [D][ ] return book (by: Sunday)
 _______________________________________________________________________________________________
 ```
+
+## Deleting a task : `delete`
+Deletes the specified task from the list.
+
+Format: `delete INDEX`
+
+Examples:
+* `delete 1`
+
+Removes the task at the specified index permanently from the tracking list. It will display the details of the deleted task and the new total number of tasks.
+```text
+_______________________________________________________________________________________________
+(Snoopy Says)
+No problemo. I will delete this Deadline from the list:
+[D][ ] return book
+Now you have 0 task(s) in the list.
+_______________________________________________________________________________________________
+```
+
+## Exiting the program : `bye`
+Exits the program and saves your tasks.
+
+Format: `bye`
+
+Examples:
+* `bye`
+
+Triggers the shutdown of the Snoopy application, overwrites the `SnoopyData.txt` file with your latest tracked items, and prints a farewell message.
+
+```text
+_______________________________________________________________________________________________
+(Snoopy Says)
+Ciao! See ya later.
+_______________________________________________________________________________________________
+```
+
