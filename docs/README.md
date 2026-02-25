@@ -6,8 +6,8 @@ Snoopy is a desktop app for managing your personal tasks and schedules, optimize
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 2. Download the latest `.jar` file from [here](https://github.com/omcodedthis/ip/releases).
-3. Copy the file to a new folder as new folder containing the save data of the program is created.
-4. Start using the `command java -jar <insert release-name>.jar` in the terminal.
+3. Copy the file to a new folder as new folder containing the save data of the program is created in the current working directory of the file.
+4. Start using the command `java -jar <insert release-name>.jar` in the terminal.
 
 # Features
 - Words in UPPER_CASE are the parameters to be supplied by the user (e.g. in todo TASK_NAME, TASK_NAME is a parameter which can be used as todo read book).
