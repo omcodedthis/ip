@@ -51,20 +51,30 @@ public class CommandRunner {
             taskList.echoList(ui);
             break;
         case MARK:
-            int markArgumentIndex = Integer.parseInt(this.commandArguments[1]) - 1;
+            try {
+                int markArgumentIndex = Integer.parseInt(this.commandArguments[1]) - 1;
 
-            if (markArgumentIndex < 0 || markArgumentIndex >= taskList.getSize()) {
-                throw new SnoopyException("Yo dawg, that task number is out of bounds!");
+                if (markArgumentIndex < 0 || markArgumentIndex >= taskList.getSize()) {
+                    throw new SnoopyException("Yo dawg, that task number is out of bounds!");
+                }
+                taskList.setTaskIsDoneValue(markArgumentIndex, true, ui);
+
+            } catch (NumberFormatException e) {
+                throw new SnoopyException("Yo dawg, you gotta give me a valid number!");
             }
-            taskList.setTaskIsDoneValue(markArgumentIndex, true, ui);
             break;
         case UNMARK:
-            int unmarkArgumentIndex = Integer.parseInt(this.commandArguments[1]) - 1;
+            try {
+                int unMarkArgumentIndex = Integer.parseInt(this.commandArguments[1]) - 1;
 
-            if (unmarkArgumentIndex < 0 || unmarkArgumentIndex >= taskList.getSize()) {
-                throw new SnoopyException("Yo dawg, that task number is out of bounds!");
+                if (unMarkArgumentIndex < 0 || unMarkArgumentIndex >= taskList.getSize()) {
+                    throw new SnoopyException("Yo dawg, that task number is out of bounds!");
+                }
+                taskList.setTaskIsDoneValue(unMarkArgumentIndex, false, ui);
+
+            } catch (NumberFormatException e) {
+                throw new SnoopyException("Yo dawg, you gotta give me a valid number!");
             }
-            taskList.setTaskIsDoneValue(unmarkArgumentIndex, false, ui);
             break;
         case TODO:
             taskList.addToDoToList(commandArguments, ui);
@@ -76,12 +86,17 @@ public class CommandRunner {
             taskList.addEventToList(commandArguments, ui);
             break;
         case DELETE:
-            int deleteArgumentIndex = Integer.parseInt(this.commandArguments[1]) - 1;
+            try {
+                int deleteArgumentIndex = Integer.parseInt(this.commandArguments[1]) - 1;
 
-            if (deleteArgumentIndex < 0 || deleteArgumentIndex >= taskList.getSize()) {
-                throw new SnoopyException("Yo dawg, that task number is out of bounds!");
+                if (deleteArgumentIndex < 0 || deleteArgumentIndex >= taskList.getSize()) {
+                    throw new SnoopyException("Yo dawg, that task number is out of bounds!");
+                }
+                taskList.deleteFromList(deleteArgumentIndex, ui);
+
+            } catch (NumberFormatException e) {
+                throw new SnoopyException("Yo dawg, you gotta give me a valid number!");
             }
-            taskList.deleteFromList(deleteArgumentIndex, ui);
             break;
         case FIND:
             String keyword = this.commandArguments[1].trim().toLowerCase();
