@@ -9,25 +9,33 @@ fi
 # delete output from previous run
 if [ -e "./ACTUAL.TXT" ]
 then
-    rm EXPECTED.TXT
+    rm ACTUAL.TXT
+fi
+
+# delete saved data from previous run to ensure a fresh start for strict comparison
+if [ -d "./data" ]
+then
+    rm -rf ./data
 fi
 
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
+# The /*/*.java wildcard ensures all sub-packages within snoopy are compiled
+if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/snoopy/*/*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
 
-# run the program, feed commands from input.txt file and redirect the output to the EXPECTED.TXT
-java -classpath ../bin Snoopy < input.txt > EXPECTED.TXT
+# run the program using the fully qualified package name, feed commands from input.txt file and redirect the output to ACTUAL.TXT
+java -classpath ../bin snoopy.ui.Snoopy < input.txt > ACTUAL.TXT
 
-# convert to UNIX format
+# convert to UNIX format for reliable diff comparison
 cp EXPECTED.TXT EXPECTED-UNIX.TXT
-dos2unix EXPECTED.TXT EXPECTED-UNIX.TXT
+cp ACTUAL.TXT ACTUAL-UNIX.TXT
+dos2unix ACTUAL-UNIX.TXT EXPECTED-UNIX.TXT
 
-# compare the output to the expected output
-diff EXPECTED.TXT EXPECTED-UNIX.TXT
+# compare the actual output to the expected output
+diff ACTUAL-UNIX.TXT EXPECTED-UNIX.TXT
 if [ $? -eq 0 ]
 then
     echo "Test result: PASSED"
