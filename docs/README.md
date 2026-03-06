@@ -22,8 +22,6 @@ Examples:
 * `todo borrow book`
 * `todo finish CS2113 assignment`
 
-Adds the specified ToDo task to the tracking list and displays a confirmation message with the current total number of tasks.
-
 ```text
 _______________________________________________________________________________________________
 (Snoopy Says)
@@ -41,8 +39,6 @@ Format: `deadline TASK_NAME /by DEADLINE`
 Examples:
 * `deadline return book /by Sunday`
 * `deadline submit report /by 2026-02-28 1800`
-
-Adds the specified Deadline task to the list, formats the deadline time, and displays a confirmation message with the current total number of tasks.
 
 ```text
 _______________________________________________________________________________________________
@@ -62,8 +58,6 @@ Examples:
 * `event project meeting /from Mon 2pm /to 4pm`
 * `event career fair /from 2026-03-01 1000 /to 2026-03-01 1800`
 
-Adds the specified Event task to the list, formats the start and end times, and displays a confirmation message with the current total number of tasks.
-
 ```text
 _______________________________________________________________________________________________
 (Snoopy Says)
@@ -80,8 +74,6 @@ Format: `list`
 
 Examples:
 * `list`
-
-Iterates through your saved tasks and prints them out in a numbered list, including their type, completion status, and attached dates.
 
 ```text
 _______________________________________________________________________________________________
@@ -104,8 +96,6 @@ Examples:
 * `mark 1`
 * `unmark 1`
 
-Updates the status icon of the task at the specified index to an `[X]` (for completed) or `[ ]` (for incomplete) and prints a confirmation message. The index must be a valid positive integer based on the `list` output.
-
 **Expected output for `mark`:**
 ```text
 _______________________________________________________________________________________________
@@ -124,15 +114,13 @@ ________________________________________________________________________________
 ```
 
 ## Locating tasks by name: `find`
-Finds tasks whose descriptions contain the given keyword. 
+Finds tasks whose description contains the given keyword. 
 
 Format: `find KEYWORD`
 
 Examples:
 * `find book`
 * `find meeting`
-
-Searches through all tracked task descriptions for the specified keyword (case-insensitive) and returns a numbered list of all matching tasks.
 
 ```text
 _______________________________________________________________________________________________
@@ -151,7 +139,6 @@ Format: `delete INDEX`
 Examples:
 * `delete 1`
 
-Removes the task at the specified index permanently from the tracking list. It will display the details of the deleted task and the new total number of tasks.
 ```text
 _______________________________________________________________________________________________
 (Snoopy Says)
@@ -168,8 +155,6 @@ Format: `bye`
 
 Examples:
 * `bye`
-
-Triggers the shutdown of the Snoopy application, overwrites the `SnoopyData.txt` file with your latest tracked items, and prints a farewell message.
 
 ```text
 _______________________________________________________________________________________________
