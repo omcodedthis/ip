@@ -22,6 +22,7 @@ Examples:
 * `todo borrow book`
 * `todo finish CS2113 assignment`
 
+**Expected output for `todo`:**
 ```text
 _______________________________________________________________________________________________
 (Snoopy Says)
@@ -40,6 +41,7 @@ Examples:
 * `deadline return book /by Sunday`
 * `deadline submit report /by 2026-02-28 1800`
 
+**Expected output for `deadline`:**
 ```text
 _______________________________________________________________________________________________
 (Snoopy Says)
@@ -58,6 +60,7 @@ Examples:
 * `event project meeting /from Mon 2pm /to 4pm`
 * `event career fair /from 2026-03-01 1000 /to 2026-03-01 1800`
 
+**Expected output for `event`:**
 ```text
 _______________________________________________________________________________________________
 (Snoopy Says)
@@ -75,6 +78,7 @@ Format: `list`
 Examples:
 * `list`
 
+**Expected output for `list`:**
 ```text
 _______________________________________________________________________________________________
 (Snoopy Says)
@@ -122,6 +126,7 @@ Examples:
 * `find book`
 * `find meeting`
 
+**Expected output for `find`:**
 ```text
 _______________________________________________________________________________________________
 (Snoopy Says)
@@ -139,6 +144,7 @@ Format: `delete INDEX`
 Examples:
 * `delete 1`
 
+**Expected output for `delete`:**
 ```text
 _______________________________________________________________________________________________
 (Snoopy Says)
@@ -156,6 +162,7 @@ Format: `bye`
 Examples:
 * `bye`
 
+**Expected output for `bye`:**
 ```text
 _______________________________________________________________________________________________
 (Snoopy Says)
